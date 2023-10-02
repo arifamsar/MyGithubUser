@@ -17,7 +17,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_KEY", "\"token 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\"")
+        buildConfigField("String", "API_KEY", "\"token your token here\"")
     }
 
     buildTypes {
@@ -63,8 +63,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.room:room-ktx:2.5.2")
     implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.test.espresso:espresso-contrib:3.5.1")
     ksp("androidx.room:room-compiler:2.5.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    ksp("androidx.room:room-compiler:2.5.2")
+    testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

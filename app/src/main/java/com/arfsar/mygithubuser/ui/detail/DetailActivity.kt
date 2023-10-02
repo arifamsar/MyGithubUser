@@ -35,14 +35,17 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.getUser(detailUser)
         val avatarUrl = intent.getStringExtra(EXTRA_AVATAR).toString()
 
-        detailViewModel.user.observe(this) {user ->
-            user?.let {
-                setDetailUser(it)
-            }
-            detailViewModel.isLoading.observe(this) { isLoading ->
-                showLoading(isLoading)
+
+        detailViewModel.user.observe(this) { user ->
+            if (user != null) {
+                setDetailUser(user)
             }
         }
+
+        detailViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
 
         val sectionsPagerAdapter = SectionsPagerAdapter(
             activity = this@DetailActivity,
@@ -81,9 +84,17 @@ class DetailActivity : AppCompatActivity() {
                 .load(detailUser.avatarUrl)
                 .into(profileImage)
             tvFollowers.text = StringBuilder(detailUser.followers.toString()).append(" Followers")
-            tvFollowing.text = StringBuilder(detailUser.followers.toString()).append(" Following")
+            tvFollowing.text = StringBuilder(detailUser.following.toString()).append(" Following")
             tvName.text = detailUser.name
             tvUsername.text = detailUser.login
+
+            if (detailUser.name.isNullOrEmpty() && detailUser.avatarUrl.isNullOrEmpty()) {
+                materialCardView.visibility = View.GONE
+                tabs.visibility = View.GONE
+            } else {
+                materialCardView.visibility = View.VISIBLE
+                tabs.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -92,7 +103,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun fabIconUpdate(fab: FloatingActionButton, isFavorite: Boolean) {
-        val iconResource = if (isFavorite) R.drawable.favorite_filled else R.drawable.favorite_outlined
+        val iconResource =
+            if (isFavorite) R.drawable.favorite_filled else R.drawable.favorite_outlined
         fab.setImageResource(iconResource)
     }
 

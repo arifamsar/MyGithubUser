@@ -20,10 +20,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class GithubUserAdapter(private val listUsers: ArrayList<ItemsItem>):
+class GithubUserAdapter(private val listUsers: ArrayList<ItemsItem>) :
     RecyclerView.Adapter<GithubUserAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemRowBinding.bind(itemView)
 
         val imgUser: ImageView = binding.profileImage
@@ -31,7 +31,8 @@ class GithubUserAdapter(private val listUsers: ArrayList<ItemsItem>):
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row, viewGroup, false)
+        val view =
+            LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -51,7 +52,7 @@ class GithubUserAdapter(private val listUsers: ArrayList<ItemsItem>):
             holder.itemView.context.startActivity(intentDetail)
         }
         val client = ApiConfig.getApiService().getDetailUser(item.login)
-        client.enqueue(object : Callback<GithubDetailResponse>{
+        client.enqueue(object : Callback<GithubDetailResponse> {
             override fun onResponse(
                 call: Call<GithubDetailResponse>,
                 response: Response<GithubDetailResponse>
@@ -65,7 +66,8 @@ class GithubUserAdapter(private val listUsers: ArrayList<ItemsItem>):
             }
 
             override fun onFailure(call: Call<GithubDetailResponse>, t: Throwable) {
-                Toast.makeText(holder.itemView.context, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show()
+                Toast.makeText(holder.itemView.context, "Terjadi Kesalahan", Toast.LENGTH_SHORT)
+                    .show()
                 Log.e("GithubUserAdapter", "onFailure ${t.message}")
             }
 
