@@ -19,9 +19,8 @@ class SettingActivity : AppCompatActivity() {
         val switchTheme = binding.switch1
 
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val settingViewModel = ViewModelProvider(this, SettingViewModelFactory(pref)).get(
-            SettingViewModel::class.java
-        )
+        val settingViewModel =
+            ViewModelProvider(this, SettingViewModelFactory(pref))[SettingViewModel::class.java]
         settingViewModel.getThemeSetting().observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -32,7 +31,7 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-        switchTheme.setOnCheckedChangeListener { _ : CompoundButton, isChecked: Boolean ->
+        switchTheme.setOnCheckedChangeListener { _: CompoundButton, isChecked: Boolean ->
             settingViewModel.saveThemeSetting(isChecked)
         }
     }

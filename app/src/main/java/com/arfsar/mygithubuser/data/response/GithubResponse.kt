@@ -17,7 +17,7 @@ data class GithubResponse(
 data class ItemsItem(
 
     @field:SerializedName("avatar_url")
-    val avatarUrl: String,
+    val avatarUrl: String? = null,
 
     @field:SerializedName("login")
     val login: String
